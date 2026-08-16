@@ -18,7 +18,8 @@ The goal was to understand how a simple frontend form can communicate with a rea
 - Supabase
 - GitHub Pages
 
-## 🌐 Live Demo: [View Live Demo](YOUR-LIVE-LINK-HERE)
+## 🌐 Live Demo
+🔗 [View the live website](https://codewithpallabi.github.io/Feedback-form/)
 
 ## Disclaimer
 
