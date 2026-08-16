@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IITM Feedback Form</title>
+<title>Feedback Form</title>
 
 <style>
 
@@ -13,7 +13,6 @@ body {
     background: #f4f4f4;
 }
 
-/* HEADER */
 header {
     background: #800020;
     color: #f5f5dc;
@@ -22,8 +21,6 @@ header {
     font-size: 28px;
     font-weight: bold;
 }
-
-/* FORM BOX */
 .container {
     max-width: 700px;
     margin: 40px auto;
@@ -33,24 +30,18 @@ header {
     color: #f5f5dc;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-/* LOGO */
 .logo {
     display: block;
     margin: auto;
     width: 180px;
     margin-bottom: 20px;
 }
-
-/* LABEL */
 .form-label {
     display: block;
     margin-top: 18px;
     font-weight: bold;
     text-decoration: underline;
 }
-
-/* INPUT */
 input, select, textarea {
     width: 100%;
     padding: 12px;
@@ -60,18 +51,13 @@ input, select, textarea {
     outline: none;
     font-size: 14px;
 }
-
-/* DOB */
 .dob {
     display: flex;
     gap: 10px;
 }
-
 .dob select {
     flex: 1;
 }
-
-/* BUTTON */
 .btn {
     margin-top: 25px;
     width: 100%;
@@ -88,7 +74,6 @@ input, select, textarea {
     transform: scale(1.05);
 }
 
-/* SUCCESS */
 .success {
     margin-top: 20px;
     background: #00a86b;
@@ -101,7 +86,7 @@ input, select, textarea {
     display: none;
 }
 
-/* FOOTER */
+
 .footer {
     text-align: center;
     margin-top: 20px;
@@ -118,7 +103,7 @@ input, select, textarea {
 <body>
 
 <header>
-    Indian Institute Of Technology Madras
+    Feedback Form
 </header>
 
 <div class="container">
@@ -160,6 +145,7 @@ input, select, textarea {
             <option>BS in Electronic System</option>
             <option>BS in Management</option>
             <option>BS in Aeronautics</option>
+            <option>BS in Cybersecurity</option>
         </select>
 
         <label class="form-label">Course Level</label>
@@ -195,45 +181,210 @@ input, select, textarea {
     </div>
 
     <div class="footer">
-        <p>This is a student feedback form project.</p>
-        <p>This is made for education purpose only.</p>
-        <p>This is a demo project.</p>
-        <p>This is not affiliated with IIT Madras or any official institution. </p>
-        <p>Email: theonexzero01@gmail.com |
+        <h6>This is an independent personal demo project created for educational and learning purposes only. It was developed to practice HTML, CSS, JavaScript, and the integration of Supabase for database and backend functionality. This project is not an official IIT Madras application, website, service, or student portal, and it is not affiliated with, endorsed by, sponsored by, or otherwise associated with the Indian Institute of Technology Madras (IIT Madras). Any reference to IIT Madras, including the use of its name or logo in this demonstration, is solely for illustrative/educational purposes and does not imply any official association or endorsement. This project is not intended for real institutional use, does not collect or process official IIT Madras data, and should not be considered an official IIT Madras feedback system.</h6>
+
     </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-/* DOB AUTO */
-for(let i=1;i<=31;i++){ day.innerHTML += `<option>${i}</option>`; }
-for(let i=1;i<=12;i++){ month.innerHTML += `<option>${i}</option>`; }
-for(let i=1980;i<=2025;i++){ year.innerHTML += `<option>${i}</option>`; }
+    const SUPABASE_URL = "https://uvpvzlrsmwwmhwxflzta.supabase.co";
 
-/* SUBMIT */
-document.getElementById("form").addEventListener("submit", function(e){
-    e.preventDefault();
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_Q8typZxoiXjPbXM2ygArow_UrQPtax4";
 
-    if(!/^[0-9]{6}$/.test(password.value)){
-        alert("Password must be 6 digits!");
-        return;
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    const form =
+        document.getElementById("form");
+
+    const nameInput =
+        document.getElementById("name");
+
+    const genderInput =
+        document.getElementById("gender");
+
+    const dayInput =
+        document.getElementById("day");
+
+    const monthInput =
+        document.getElementById("month");
+
+    const yearInput =
+        document.getElementById("year");
+
+    const guardianInput =
+        document.getElementById("guardian");
+
+    const phoneInput =
+        document.getElementById("phone");
+
+    const emailInput =
+        document.getElementById("email");
+
+    const courseInput =
+        document.getElementById("course");
+
+    const levelInput =
+        document.getElementById("level");
+
+    const difficultyInput =
+        document.getElementById("difficulty");
+
+    const feedbackInput =
+        document.getElementById("feedback");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const successBox =
+        document.getElementById("successBox");
+
+
+
+    // DAYS
+    for (let i = 1; i <= 31; i++) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = i;
+        option.textContent = i;
+
+        dayInput.appendChild(option);
     }
 
-    let data = {
-        name: name.value,
-        gender: gender.value,
-        email: email.value,
-        feedback: feedback.value
-    };
 
-    let allData = JSON.parse(localStorage.getItem("feedback")) || [];
-    allData.push(data);
-    localStorage.setItem("feedback", JSON.stringify(allData));
+    // MONTHS
+    for (let i = 1; i <= 12; i++) {
 
-    document.getElementById("successBox").classList.remove("hidden");
-    this.reset();
-});
+        const option =
+            document.createElement("option");
+
+        option.value = i;
+        option.textContent = i;
+
+        monthInput.appendChild(option);
+    }
+
+
+    // YEARS
+    for (let i = 1980; i <= 2025; i++) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = i;
+        option.textContent = i;
+
+        yearInput.appendChild(option);
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async function(e) {
+
+            e.preventDefault();
+
+
+
+            if (
+                !/^[0-9]{6}$/.test(
+                    passwordInput.value
+                )
+            ) {
+
+                alert(
+                    "Password must be 6 digits!"
+                );
+
+                return;
+            }
+
+
+            const dob =
+                `${yearInput.value}-${String(monthInput.value).padStart(2, "0")}-${String(dayInput.value).padStart(2, "0")}`;
+
+
+
+            const feedbackData = {
+
+                name:
+                    nameInput.value.trim(),
+
+                gender:
+                    genderInput.value,
+
+                date_of_birth:
+                    dob,
+
+                guardian_name:
+                    guardianInput.value.trim(),
+
+                phone:
+                    phoneInput.value.trim(),
+
+                email:
+                    emailInput.value.trim(),
+
+                course:
+                    courseInput.value,
+
+                course_level:
+                    levelInput.value,
+
+                difficulty:
+                    difficultyInput.value,
+
+                feedback:
+                    feedbackInput.value.trim()
+
+            };
+
+
+            const { error } =
+                await supabaseClient
+                    .from("feedback_submissions")
+                    .insert(feedbackData);
+
+
+            if (error) {
+
+                console.error(
+                    "SUPABASE DATABASE ERROR:",
+                    error
+                );
+
+                alert(
+                    "Database error: " +
+                    error.message
+                );
+
+                return;
+            }
+
+
+
+            successBox
+                .classList
+                .remove("hidden");
+
+
+            form.reset();
+
+        }
+    );
 
 </script>
 
